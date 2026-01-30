@@ -1,0 +1,22 @@
+import { Controller, Get } from '@nestjs/common';
+import { AppService } from './app.service';
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get('/hello')
+  getHello(): string {
+    return this.appService.getHello();
+  }
+
+  @Get('/welcome')
+  getWelcome(): string {
+    return this.appService.getWelcome();
+}
+
+  @Get('/tambah')
+  tambah(): number {
+    return this.appService.tambah(20,10);
+  }
+}
