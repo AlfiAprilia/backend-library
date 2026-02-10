@@ -7,9 +7,18 @@ import { PrismaModule } from './prisma/prisma.module';
 import { LoanModule } from './loan/loan.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [PrismaModule, BooksModule, MembersModule, LoanModule, AuthModule, UserModule],
+  imports: [ PrismaModule, BooksModule, MembersModule, LoanModule, AuthModule, UserModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath:
+      process.env.NODE_ENV === 'production'
+      ? '.env.production'
+      : '.env'
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -11,20 +11,24 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { UserRole } from '@prisma/client';
 
+@ApiTags('Books')
+@ApiBearerAuth()
 @Controller('books')
 export class BooksController {
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles(UserRole.ADMIN)
     // @Post()
     @Post('tambah')
-    create(@Body() dto: CreateBookDto) {
-        return this.booksService.create(dto);
+    @ApiOperation({ summary: 'Menambahkan buku (ADMIN only)' })
+    create(@Body() body: any) {
+        return body;
 }
 constructor(private readonly booksService:
 BooksService) {}
     @Get()
+    @ApiOperation({ summary: 'Menampilkan seluruh data buku' })
     findAll() {
-        return this.booksService.findAll();
+        return [];
 }
     @Get(':id')
     findOne(@Param('id', ParseIntPipe) id: number) {
